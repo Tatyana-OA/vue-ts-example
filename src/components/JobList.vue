@@ -1,11 +1,16 @@
 <script lang="ts">
 import { Job } from "@/types/Job";
+import { OrderTerm } from "@/types/OrderTerm";
 import { defineComponent, PropType } from "vue";
 export default defineComponent({
   props: {
     jobs: {
       type: Array as PropType<Job[]>,
       required: true,
+    },
+    sortOrder: {
+      required: false,
+      type: String as PropType<OrderTerm>,
     },
   },
 });
@@ -27,6 +32,7 @@ export default defineComponent({
 
 <style scoped>
 .job-list {
+  text-align: left;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,6 +56,7 @@ ul {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .job-item:hover {

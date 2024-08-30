@@ -1,105 +1,72 @@
 <template>
   <div class="app">
-    <JobList :jobs="jobs" />
+    <h1>Random Jobs Below!</h1>
+    <div class="button-group">
+      <button @click="handleClick('title')" class="order-button">
+        Order by Title
+      </button>
+      <button class="order-button" @click="handleClick('salary')">
+        Order by Salary
+      </button>
+      <button class="order-button" @click="handleClick('location')">
+        Order by Location
+      </button>
+    </div>
+    <JobList :jobs="jobs" :sortOrder="sortOrder" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { Job } from "./types/Job";
+import { OrderTerm } from "./types/OrderTerm";
 import JobList from "./components/JobList.vue";
+import { jobData } from "./data/JobData";
 
 export default defineComponent({
   name: "App",
   components: { JobList },
   setup() {
-    const jobs = ref<Job[]>([
-      {
-        title: "Farm Worker",
-        location: "Lon Lon Ranch",
-        salary: 30000,
-        id: "1",
-        description:
-          "Responsible for tending to crops and animals, maintaining equipment, and assisting with farm operations at Lon Lon Ranch.",
-      },
-      {
-        title: "Blacksmith",
-        location: "Hyrule Castle Town",
-        salary: 40000,
-        id: "2",
-        description:
-          "Crafts and repairs weapons, armor, and other metal items. Requires strength, precision, and knowledge of metallurgy.",
-      },
-      {
-        title: "Potion Maker",
-        location: "Kakariko Village",
-        salary: 35000,
-        id: "3",
-        description:
-          "Brews potions and elixirs for healing, stamina, and special abilities. Must be skilled in herbology and potion recipes.",
-      },
-      {
-        title: "Carpenter",
-        location: "Hateno Village",
-        salary: 32000,
-        id: "4",
-        description:
-          "Builds and repairs homes, structures, and furniture. Requires knowledge of wood types, tools, and construction techniques.",
-      },
-      {
-        title: "Guard",
-        location: "Hyrule Castle",
-        salary: 45000,
-        id: "5",
-        description:
-          "Protects the castle and its inhabitants from intruders and threats. Must be skilled in combat and vigilant in duty.",
-      },
-      {
-        title: "Merchant",
-        location: "Gerudo Town",
-        salary: 38000,
-        id: "6",
-        description:
-          "Trades goods and manages a store in Gerudo Town. Requires negotiation skills and knowledge of market trends.",
-      },
-      {
-        title: "Chef",
-        location: "Zora's Domain",
-        salary: 34000,
-        id: "7",
-        description:
-          "Prepares meals for the residents of Zora's Domain using fresh, local ingredients. Must be creative and skilled in culinary arts.",
-      },
-      {
-        title: "Fisherman",
-        location: "Lake Hylia",
-        salary: 28000,
-        id: "8",
-        description:
-          "Catches fish in Lake Hylia for food and trade. Requires patience, knowledge of fishing techniques, and understanding of local aquatic life.",
-      },
-      {
-        title: "Scholar",
-        location: "Castle Library",
-        salary: 50000,
-        id: "9",
-        description:
-          "Conducts research and preserves historical documents and knowledge in the castle library. Requires a deep love for learning and attention to detail.",
-      },
-      {
-        title: "Innkeeper",
-        location: "Rito Village",
-        salary: 36000,
-        id: "10",
-        description:
-          "Manages the inn, providing lodging and comfort to travelers in Rito Village. Requires hospitality skills and a friendly demeanor.",
-      },
-    ]);
+    const jobs = ref<Job[]>(jobData);
+    const sortOrder = ref<OrderTerm>("title");
 
-    return { jobs };
+    const handleClick = (term: OrderTerm) => {
+      sortOrder.value = term;
+    };
+
+    return { jobs, handleClick, sortOrder };
   },
-  methods: {},
 });
 </script>
 
-<style></style>
+<style scoped>
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.order-button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.2s ease;
+}
+
+.order-button:hover {
+  background-color: #e2e6ea;
+  border-color: #adb5bd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-button:active {
+  background-color: #dae0e5;
+  border-color: #868e96;
+}
+</style>
