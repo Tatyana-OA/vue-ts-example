@@ -3,4 +3,5 @@ export interface Job {
   location: string;
   salary: number | string;
   id: string;
+  description: string;
 }
