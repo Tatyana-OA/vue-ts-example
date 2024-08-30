@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Job } from "@/types/Job";
 import { OrderTerm } from "@/types/OrderTerm";
-import { defineComponent, PropType } from "vue";
+import { defineComponent, PropType, computed } from "vue";
 export default defineComponent({
   props: {
     jobs: {
@@ -9,9 +9,18 @@ export default defineComponent({
       required: true,
     },
     sortOrder: {
-      required: false,
+      required: true,
       type: String as PropType<OrderTerm>,
     },
+  },
+  setup(props) {
+    const orderedJobs = computed(() => {
+      return [...props.jobs].sort((a: Job, b: Job) => {
+        return a[props.sortOrder] > b[props.sortOrder] ? 1 : -1;
+      });
+    });
+
+    return { orderedJobs };
   },
 });
 </script>
@@ -19,7 +28,10 @@ export default defineComponent({
 <template>
   <div class="job-list">
     <ul>
-      <li v-for="job in jobs" :key="job.id" class="job-item">
+      <p>
+        Viewing jobs ordered by <strong>{{ sortOrder }}</strong>
+      </p>
+      <li v-for="job in orderedJobs" :key="job.id" class="job-item">
         <h1 class="job-title">{{ job.title }} in {{ job.location }}</h1>
         <div class="job-details">
           <p class="job-salary">Salary: ${{ job.salary.toLocaleString() }}</p>
