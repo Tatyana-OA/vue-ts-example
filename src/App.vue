@@ -1,54 +1,81 @@
 <template>
-  <div class="app">
-    <p>{{ name }} - {{ age }}</p>
-    <button @click="changeName('Another Name')">Change name</button>
-    <button @click="changeAge('40')">Change Age</button>
-  </div>
+  <div class="app"></div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-
-// type State = {
-//   name: string;
-//   age: number | string;
-// };
-
-// const state: State = reactive({
-
-// });
-
-// const changeAge = (newAge: number | string) => {
-//   state.age = newAge;
-// };
-// const changeName = (newName: string) => {
-//   state.name = newName;
-// };
+import { Job } from "./types/Job";
 
 export default defineComponent({
   name: "App",
   components: {},
   setup() {
-    // const state: State = reactive({
-    //   name: "A Name",
-    //   age: 27,
-    // });
-    // return {
-    //   ...toRefs(state),
-    // };
+    const jobs = ref<Job[]>([
+      {
+        title: "Farm Worker",
+        location: "Lon Lon Ranch",
+        salary: 30000,
+        id: "1",
+      },
+      {
+        title: "Blacksmith",
+        location: "Hyrule Castle Town",
+        salary: 40000,
+        id: "2",
+      },
+      {
+        title: "Potion Maker",
+        location: "Kakariko Village",
+        salary: 35000,
+        id: "3",
+      },
+      {
+        title: "Carpenter",
+        location: "Hateno Village",
+        salary: 32000,
+        id: "4",
+      },
+      {
+        title: "Guard",
+        location: "Hyrule Castle",
+        salary: 45000,
+        id: "5",
+      },
+      {
+        title: "Merchant",
+        location: "Gerudo Town",
+        salary: 38000,
+        id: "6",
+      },
+      {
+        title: "Chef",
+        location: "Zora's Domain",
+        salary: 34000,
+        id: "7",
+      },
+      {
+        title: "Fisherman",
+        location: "Lake Hylia",
+        salary: 28000,
+        id: "8",
+      },
+      {
+        title: "Scholar",
+        location: "Castle Library",
+        salary: 50000,
+        id: "9",
+      },
+      {
+        title: "Innkeeper",
+        location: "Rito Village",
+        salary: 36000,
+        id: "10",
+      },
+    ]);
 
-    const name = ref<string>("A name");
-    const age = ref<string | number>(25);
-    return { name, age };
+    return { jobs };
   },
-  methods: {
-    changeAge(newAge: number | string) {
-      this.age = newAge;
-    },
-    changeName(newName: string) {
-      this.name = newName;
-    },
-  },
+  methods: {},
 });
 </script>
 
